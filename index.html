@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+</head>
+<body>  
+
+    <div class="mobile-arrow">
+        <span class="mobile-icon material-icons-outlined">chevron_right</span>
+    </div>
+
+    <aside class="sidebar sidebar-close-mobile">
+        <div class="side-icon search">
+            <span class="material-icons-outlined">search</span>
+            <p class="icon-desc">Search</p>
+            <input class="form-input closed-sidebar search-open" type="text"></input>
+        </div>
+        <div class="side-icon add">
+            <span class="material-icons-outlined">add</span>
+            <p class="icon-desc">Add</p>
+            <form class="closed-sidebar add-open">
+                <label>Title</label>
+                <input class="form-input" type="text">
+                <label>Author</label>
+                <input class="form-input" type="text">
+                <!-- <label>Date added</label>
+                <input class="form-input date" type="date"> -->
+                <label>Have read?</label>
+                <input type="radio" id="yes" name="read" value="Yes" checked>
+                <label for="Yes">Yes</label>
+                <input type="radio" id="no" name="read" value="No">
+                <label for="No">No</label>
+            </form>
+        </div>
+        <div class="side-icon remove">
+            <span class="material-icons-outlined">remove</span>
+            <p class="icon-desc">Remove</p>
+            <div class="closed-sidebar remove-open">
+                <form method="post">
+                    <select class="form-select" name="book list">
+                        <option value="" disabled selected hidden>Choose a book</option>
+                        <option value="book title">Book Title</option>
+                    </select>
+                </form>
+                <button class="white-btn">Remove</button>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main">
+        <h1>Bookshelf</h1>
+
+        <section class="grid">
+            <!-- <article class="card">
+                <h3 id="title"></h3>
+                <p>Mary Shelley</p>
+                <p>June 1, 2019<i class="material-icons-outlined icon">thumb_up</i></p>
+                <div class="toggleButton">
+                    <button>Want to read</button><button class="toggleOn">Have read</button>
+                </div>
+            </article>
+            <article>
+                <h3 id="title"></h3>
+                <p>Frank Herbert</p>
+                <p>August 15, 2018<i class="material-icons-outlined icon icon2">thumb_up</i></p>
+                <div class="toggleButton">
+                    <button>Want to read</button><button class="toggleOn">Have read</button>
+                </div>
+            </article> -->
+            <!-- <article>
+                <h3 id="title">The Princess Bride</h3>
+                <p>William Goldman</p>
+                <p>February 28, 2022</p>
+                <div class="toggleButton">
+                    <button class="toggleOn">Want to read</button><button>Have read</button>
+                </div>
+            </article> -->
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+   
+</body>
+</html>
