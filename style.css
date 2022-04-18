@@ -8,11 +8,11 @@
 }
 
 button {
+    width: 50%;
     background: none;
     border: 1px solid rgb(27, 0, 70);
-    padding: .5rem 1em;
+    padding: .5em;
     color:rgb(27, 0, 70);
-    border-radius: 5px;
 }
 
 .white-btn {
@@ -178,19 +178,90 @@ h3 {
     cursor: pointer;
 } */
 
-.toggleButton {
+.toggle-button {
+    width: 250px;
     align-self: center;
     margin-top: 2rem;
 }
 
-.toggleButton button:hover {
+.toggle-button button:hover {
     cursor: pointer;
 }
 
-.toggleOn {
+.toggle-on {
     background:rgb(27, 0, 70);
     color: #fff;
 }
+
+.left-button {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.right-button {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/******** LOADING ANIMATION ********/
+
+#loading {
+    display: none;
+    margin: 0 auto;
+    position: relative;
+    /* text-align: center; */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color:rgb(27, 0, 70);
+    animation: dotFlashing 1s infinite linear alternate;
+    animation-delay: .5s;
+}
+
+#loading.display {
+    display: block;
+}
+
+#loading::before, #loading::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    /* top: 0; */
+  }
+
+#loading::before {
+    content: '';
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color:rgb(27, 0, 70);
+    /* color:rgb(27, 0, 70) */
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 0s;
+}
+
+#loading::after {
+    content: '';
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color:rgb(27, 0, 70);
+    /* color:rgb(27, 0, 70); */
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 1s;
+}
+
+@keyframes dotFlashing {
+    0% {
+      background-color: rgb(27, 0, 70);
+    }
+    50%,
+    100% {
+      background-color: #ddd;
+    }
+  }
 
 @media only screen and (min-width: 550px) and (max-width: 825px) {
     

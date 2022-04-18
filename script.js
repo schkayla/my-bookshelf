@@ -62,18 +62,42 @@ const addButton = () => {
     let buttonDiv = document.createElement('div');
     let yesButton = document.createElement('button');
     let noButton = document.createElement('button');
-    buttonDiv.classList.add('toggleButton');
+    buttonDiv.classList.add('toggle-button');
     card.appendChild(buttonDiv);
     buttonDiv.appendChild(yesButton);
     buttonDiv.appendChild(noButton);
-    yesButton.classList.add('toggleOn')
+    yesButton.classList.add('toggle-on');
+    yesButton.classList.add('left-button');
+    noButton.classList.add('right-button');
     yesButton.textContent = 'Have read';
     noButton.textContent = 'Want to read';
 }
 
-fetch('https://my-bookshelf-backend.herokuapp.com/')
+// Loading animation
+
+const loading = document.querySelector('#loading');
+
+function displayLoading() {
+    loading.classList.add('display');
+
+    setTimeout(() => {
+        loading.classList.remove('display');
+    }, 5000);
+}
+
+function hideLoading() {
+    loading.classList.remove('display');
+}
+
+// Fetch database
+
+function fetchHandler() {
+    displayLoading();
+
+    fetch('https://my-bookshelf-backend.herokuapp.com/')
     .then(response => response.json())
     .then(data => { 
+        hideLoading();
 
         data.values.forEach(item => titleArr.push(item[0]));
         titleArr.shift(0);
@@ -106,4 +130,6 @@ fetch('https://my-bookshelf-backend.herokuapp.com/')
         
     })
     .catch(e => console.log(e))
+}
 
+fetchHandler();
