@@ -15,6 +15,11 @@ button {
     color:rgb(27, 0, 70);
 }
 
+button:hover {
+    border: 2px solid rgb(27, 0, 70);
+    cursor: pointer;
+}
+
 .white-btn {
     background: hsl(263, 15%, 92%);
     border: none;
@@ -22,6 +27,18 @@ button {
     color: rgb(27, 0, 70);
     border-radius: 20px;
     margin: 1em .5em;
+    text-align: center;
+}
+
+.white-btn:hover {
+    background:hsl(263, 10%, 30%);
+    cursor: pointer;
+    color:hsl(263, 15%, 92%);
+}
+
+.not-active, .not-active:hover, .not-active:active {
+    background-color: gray;
+    color: rgb(175, 0, 0);
 }
 
 h1 {
@@ -133,9 +150,6 @@ h3 {
     transition: all .5s ease;
 }
 
-/* .search-open {
-    transition: all .5s ease;
-} */
 
 /******** BOOK GRID ********/
 
@@ -162,7 +176,8 @@ h3 {
 
 .icon {
     /* display: inline; */
-    align-self: flex-end;
+    /* align-self: flex-end; */
+    float: right;
     font-size: 32px !important;
 }
 

@@ -18,37 +18,41 @@
         <div class="side-icon search">
             <span class="material-icons-outlined">search</span>
             <p class="icon-desc">Search</p>
-            <input class="form-input closed-sidebar search-open" type="text"></input>
         </div>
+        <input class="form-input closed-sidebar search-open search-input" type="text"></input>
+        
         <div class="side-icon add">
             <span class="material-icons-outlined">add</span>
             <p class="icon-desc">Add</p>
-            <form class="closed-sidebar add-open">
-                <label>Title</label>
-                <input class="form-input" type="text">
-                <label>Author</label>
-                <input class="form-input" type="text">
-                <!-- <label>Date added</label>
-                <input class="form-input date" type="date"> -->
-                <label>Have read?</label>
-                <input type="radio" id="yes" name="read" value="Yes" checked>
-                <label for="Yes">Yes</label>
-                <input type="radio" id="no" name="read" value="No">
-                <label for="No">No</label>
-            </form>
         </div>
+        <form action="https://my-bookshelf-backend.herokuapp.com/" method="POST" id="add-form" class="closed-sidebar add-open">
+            <label for="title-input">Title</label>
+            <input id="title-input" class="form-input" type="text" required>
+            <label for="author-input">Author</label>
+            <input id="author-input" class="form-input" type="text" required>
+            <!-- <label>Date added</label>
+            <input class="form-input date" type="date"> -->
+            <!-- <label>Have read?</label>
+            <input type="radio" id="yes" name="read" value="Yes" checked>
+            <label for="Yes">Yes</label>
+            <input type="radio" id="no" name="read" value="No">
+            <label for="No">No</label> -->
+            <input type="submit" value="Add" class="white-btn add-btn not-active">
+        </form>
+     
         <div class="side-icon remove">
             <span class="material-icons-outlined">remove</span>
             <p class="icon-desc">Remove</p>
-            <div class="closed-sidebar remove-open">
-                <form method="post">
-                    <select class="form-select" name="book list">
-                        <option value="" disabled selected hidden>Choose a book</option>
-                        <option value="book title">Book Title</option>
-                    </select>
-                </form>
-                <button class="white-btn">Remove</button>
-            </div>
+        </div>
+        <div class="closed-sidebar remove-open remove-form">
+            <form method="POST">
+                <select class="form-select" name="book list">
+                    <option value="" disabled selected hidden>Choose a book</option>
+                    <option value="book title">Book Title</option>
+                </select>
+                <button type="button" class="white-btn remove-btn not-active">Remove</button>
+            </form>
+            
         </div>
 
     </aside>
@@ -65,22 +69,7 @@
                     <button>Want to read</button><button class="toggle-on">Have read</button>
                 </div>
             </article>
-            <article>
-                <h3 id="title"></h3>
-                <p>Frank Herbert</p>
-                <p>August 15, 2018<i class="material-icons-outlined icon icon2">thumb_up</i></p>
-                <div class="toggle-button">
-                    <button>Want to read</button><button class="toggle-on">Have read</button>
-                </div>
-            </article> -->
-            <!-- <article>
-                <h3 id="title">The Princess Bride</h3>
-                <p>William Goldman</p>
-                <p>February 28, 2022</p>
-                <div class="toggle-button">
-                    <button class="toggle-on">Want to read</button><button>Have read</button>
-                </div>
-            </article> -->
+             -->
 
             <div id='loading'></div>
 

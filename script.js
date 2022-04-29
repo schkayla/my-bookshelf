@@ -8,11 +8,17 @@ const remove = document.querySelector('.remove');
 const removeOpen = document.querySelector('.remove-open');
 const main = document.querySelector('.main');
 
+// const sideIcon = document.querySelector('.side-icon');
+
 // Sidebar functionality desktop + mobile
 
 sidebar.addEventListener('click', () => {
     sidebar.classList.add('sidebar-open');
 })
+
+// sideIcon.addEventListener('click', (e) => {
+//     e.classList.toggle('closed-sidebar');
+// }) select diff opens with one click event
 
 search.addEventListener('click', () => {
     searchOpen.classList.toggle('closed-sidebar');
@@ -40,38 +46,7 @@ main.addEventListener('click', () => {
     removeOpen.classList.add('closed-sidebar');
 })
 
-// Adding card elements and info from database
 
-const grid = document.querySelector('.grid');
-
-let titleArr = [];
-let authorArr = [];
-let dateArr = [];
-let card;
-
-
-const addIcon = () => {
-    let icon = document.createElement('i')
-    icon.classList.add('material-icons-outlined');
-    icon.classList.add('icon');
-    icon.textContent = 'thumb_up';
-    card.appendChild(icon);
-}
-
-const addButton = () => {
-    let buttonDiv = document.createElement('div');
-    let yesButton = document.createElement('button');
-    let noButton = document.createElement('button');
-    buttonDiv.classList.add('toggle-button');
-    card.appendChild(buttonDiv);
-    buttonDiv.appendChild(yesButton);
-    buttonDiv.appendChild(noButton);
-    yesButton.classList.add('toggle-on');
-    yesButton.classList.add('left-button');
-    noButton.classList.add('right-button');
-    yesButton.textContent = 'Have read';
-    noButton.textContent = 'Want to read';
-}
 
 // Loading animation
 
@@ -82,14 +57,41 @@ function displayLoading() {
 
     setTimeout(() => {
         loading.classList.remove('display');
-    }, 5000);
+    }, 50000);
 }
 
 function hideLoading() {
     loading.classList.remove('display');
 }
 
+// Create book cards
+
+const grid = document.querySelector('.grid');
+
+function displayBooks(books) {
+    const htmlString = books.map(book => {
+        return `
+        <article class="card">
+            <h3 id="title">${book.title}</h3>
+            <p>${book.author}</p>
+            <p>${book.date}<i class="material-icons-outlined icon">thumb_up</i></p>
+            <div class="toggle-button">
+                <button>Want to read</button><button class="toggle-on">Have read</button>
+            </div>
+        </article>
+        `;
+    }).join('');
+
+    grid.innerHTML = htmlString;
+}
+
+
 // Fetch database
+
+let titleArr = [];
+let authorArr = [];
+let dateArr = [];
+let dataObject = {};
 
 function fetchHandler() {
     displayLoading();
@@ -97,39 +99,42 @@ function fetchHandler() {
     fetch('https://my-bookshelf-backend.herokuapp.com/')
     .then(response => response.json())
     .then(data => { 
-        hideLoading();
-
-        data.values.forEach(item => titleArr.push(item[0]));
+        
+        data.values.forEach(i => titleArr.push(i[0]));
         titleArr.shift(0);
-        data.values.forEach(item => authorArr.push(item[1]));
+        data.values.forEach(i => authorArr.push(i[1]));
         authorArr.shift(0);
-        data.values.forEach(item => dateArr.push(item[2]));
+        data.values.forEach(i => dateArr.push(i[2]));
         dateArr.shift(0);
 
-        for (item in titleArr){
-            card = document.createElement('article');
-            card.classList.add('.card');
-            grid.appendChild(card);
+        dataObject = titleArr.map((item, index) => ({ 
+            title: item, 
+            author: authorArr[index] || '', 
+            date: dateArr[index] || '' 
+        }));
 
-            let title = document.createElement('h3');
-            card.appendChild(title);
-            title.textContent = titleArr[item];
-
-            let author = document.createElement('p');
-            card.appendChild(author);
-            author.textContent = authorArr[item];
-
-            let date = document.createElement('p');
-            card.appendChild(date);
-            date.textContent = dateArr[item];
-
-            addIcon()
-            addButton()
-    
-        }
-        
+        hideLoading();
+        displayBooks(dataObject);
     })
-    .catch(e => console.log(e))
+    .catch(e => console.error(e))
 }
 
 fetchHandler();
+
+// add search filter
+
+const searchInput = document.querySelector('.search-input');
+
+function filterResults(e) {
+    let updateInput = e.target.value.toLowerCase();
+
+    let filteredArr = dataObject.filter(book => {
+        return book.title.toLowerCase().includes(updateInput) || book.author.toLowerCase().includes(updateInput)
+    })
+    
+    displayBooks(filteredArr);
+}
+
+searchInput.addEventListener('keyup', filterResults);
+
+
