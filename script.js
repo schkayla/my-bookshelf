@@ -115,6 +115,7 @@ function fetchHandler() {
 
         hideLoading();
         displayBooks(dataObject);
+        bookOptions(titleArr);
     })
     .catch(e => console.error(e))
 }
@@ -136,5 +137,18 @@ function filterResults(e) {
 }
 
 searchInput.addEventListener('keyup', filterResults);
+
+
+// Dropdown list in remove section
+
+const titleDropdown = document.querySelector('.form-select');
+
+const bookOptions = () => {
+    const optionsList = titleArr.map(title => {
+        return `<option value=${title}>${title}</option>`
+    })
+
+    titleDropdown.innerHTML = optionsList;
+}
 
 
