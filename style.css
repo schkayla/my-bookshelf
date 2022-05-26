@@ -102,7 +102,7 @@ h3 {
     transition: all 0.5s ease;
 }
 
-.side-icon:hover .icon-desc{
+.side-icon:hover .icon-desc {
     opacity: 1;
     transition: all 0.5s ease;
 }
@@ -181,17 +181,17 @@ h3 {
     font-size: 32px !important;
 }
 
-/* .icon2 {
+.thumb-mid {
     transform: rotate(-90deg);
 }
 
-.icon3 {
+.thumb-down {
     transform: rotate(-180deg);
-} */
+}
 
-/* .icon:hover {
-    cursor: pointer;
-} */
+.thumb-hidden {
+    opacity: 0;
+}
 
 .toggle-button {
     width: 250px;

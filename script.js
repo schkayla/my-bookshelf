@@ -64,6 +64,15 @@ function hideLoading() {
     loading.classList.remove('display');
 }
 
+// Variables
+
+let titleArr = [];
+let authorArr = [];
+let dateArr = [];
+let haveReadArr = [];
+let ratingArr = [];
+let dataObject = {};
+
 // Create book cards
 
 const grid = document.querySelector('.grid');
@@ -74,7 +83,7 @@ function displayBooks(books) {
         <article class="card">
             <h3 id="title">${book.title}</h3>
             <p>${book.author}</p>
-            <p>${book.date}<i class="material-icons-outlined icon">thumb_up</i></p>
+            <p>${book.date}<i   class="material-icons-outlined icon ${book.rating}">thumb_up</i></p>
             <div class="toggle-button">
                 <button>Want to read</button><button class="toggle-on">Have read</button>
             </div>
@@ -85,13 +94,18 @@ function displayBooks(books) {
     grid.innerHTML = htmlString;
 }
 
+// Display rating on book cards
+
+const showRating = () => {
+    return ratingArr.map(rating => {
+        return rating === '3' ? 'thumb'
+             : rating === '2' ? `thumb-mid`
+             : rating === '1' ? `thumb-down`
+             : 'thumb-hidden';
+    })
+}
 
 // Fetch database
-
-let titleArr = [];
-let authorArr = [];
-let dateArr = [];
-let dataObject = {};
 
 function fetchHandler() {
     displayLoading();
@@ -106,23 +120,30 @@ function fetchHandler() {
         authorArr.shift(0);
         data.values.forEach(i => dateArr.push(i[2]));
         dateArr.shift(0);
+        data.values.forEach(i => haveReadArr.push(i[3]));
+        haveReadArr.shift(0);
+        data.values.forEach(i => ratingArr.push(i[4]));
+        ratingArr.shift(0);
 
         dataObject = titleArr.map((item, index) => ({ 
             title: item, 
             author: authorArr[index] || '', 
-            date: dateArr[index] || '' 
+            date: dateArr[index] || '',
+            rating: showRating(ratingArr)[index] || '',
         }));
 
         hideLoading();
         displayBooks(dataObject);
         bookOptions(titleArr);
+      
     })
     .catch(e => console.error(e))
 }
 
 fetchHandler();
 
-// add search filter
+
+// Add title and author filter for search section
 
 const searchInput = document.querySelector('.search-input');
 
@@ -139,7 +160,7 @@ function filterResults(e) {
 searchInput.addEventListener('keyup', filterResults);
 
 
-// Dropdown list in remove section
+// Populate dropdown list in remove section
 
 const titleDropdown = document.querySelector('.form-select');
 
@@ -150,5 +171,4 @@ const bookOptions = () => {
 
     titleDropdown.innerHTML = optionsList;
 }
-
 
