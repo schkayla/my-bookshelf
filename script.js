@@ -85,7 +85,7 @@ function displayBooks(books) {
             <p>${book.author}</p>
             <p>${book.date}<i   class="material-icons-outlined icon ${book.rating}">thumb_up</i></p>
             <div class="toggle-button">
-                <button>Want to read</button><button class="toggle-on">Have read</button>
+                ${book.read}
             </div>
         </article>
         `;
@@ -102,6 +102,16 @@ const showRating = () => {
              : rating === '2' ? `thumb-mid`
              : rating === '1' ? `thumb-down`
              : 'thumb-hidden';
+    })
+}
+
+// Display purple read button on book cards
+
+const showHaveRead = () => {
+    return haveReadArr.map(index => {
+        if (index === 'yes') {
+            return `<button>Want to read</button><button class="toggle-on">Have read</button>`
+        } else return `<button class="toggle-on">Want to read</button><button>Have read</button>`
     })
 }
 
@@ -130,6 +140,7 @@ function fetchHandler() {
             author: authorArr[index] || '', 
             date: dateArr[index] || '',
             rating: showRating(ratingArr)[index] || '',
+            read: showHaveRead(haveReadArr)[index]
         }));
 
         hideLoading();
