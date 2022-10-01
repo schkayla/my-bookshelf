@@ -7,6 +7,10 @@
     line-height: 2em;
 }
 
+:root {
+    --challenge-percent: 1%;
+}
+
 button {
     width: 50%;
     background: none;
@@ -15,14 +19,15 @@ button {
     color:rgb(27, 0, 70);
 }
 
-button:hover {
+/* button:hover {
     border: 2px solid rgb(27, 0, 70);
     cursor: pointer;
-}
+} */
 
 .white-btn {
     background: hsl(263, 15%, 92%);
     border: none;
+    width: 120px;
     padding: .2rem 2em;
     color: rgb(27, 0, 70);
     border-radius: 20px;
@@ -133,8 +138,8 @@ h3 {
     transition: all .5s ease .5s;
 }
 
-.date {
-    width: 150px;
+.checkbox {
+    margin: .5em;
 }
 
 .form-select {
@@ -148,6 +153,30 @@ h3 {
 .closed-sidebar {
     display: none;
     transition: all .5s ease;
+}
+
+.challenge-display {
+    width: 80%;
+}
+
+.challenge-bar {
+    position: relative;
+    border: 1px solid #fff;
+    width: 100%;
+    height: 1.5em;
+    border-radius: 1em;
+    margin: 1em auto;
+}
+
+.challenge-bar::before {
+    content: '';
+    position: absolute;
+    background-color: #fff;
+    width: var(--challenge-percent);
+    max-width: 100%;
+    height: 1.5em;
+    border-radius: 1em;
+
 }
 
 
@@ -199,9 +228,9 @@ h3 {
     margin-top: 2rem;
 }
 
-.toggle-button button:hover {
+/* .toggle-button button:hover {
     cursor: pointer;
-}
+} */
 
 .toggle-on {
     background:rgb(27, 0, 70);

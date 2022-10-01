@@ -25,19 +25,19 @@
             <span class="material-icons-outlined">add</span>
             <p class="icon-desc">Add</p>
         </div>
-        <form action="https://my-bookshelf-backend.herokuapp.com/" method="POST" id="add-form" class="closed-sidebar add-open">
-            <label for="title-input">Title</label>
-            <input id="title-input" class="form-input" type="text" required>
-            <label for="author-input">Author</label>
-            <input id="author-input" class="form-input" type="text" required>
+        <form action="" method="POST" id="add-form" class="closed-sidebar add-open">
+            <label for="title">Title</label>
+            <input id="title" name="title" class="form-input" type="text" required>
+            <label for="author">Author</label>
+            <input id="author" name="author" class="form-input" type="text" required>
             <!-- <label>Date added</label>
             <input class="form-input date" type="date"> -->
-            <!-- <label>Have read?</label>
-            <input type="radio" id="yes" name="read" value="Yes" checked>
+            <label>Have read?</label>
+            <input class="checkbox" type="checkbox" id="read" name="read" value="Yes" checked>
             <label for="Yes">Yes</label>
-            <input type="radio" id="no" name="read" value="No">
+            <!-- <input type="radio" id="no" name="read" value="No">
             <label for="No">No</label> -->
-            <input type="submit" value="Add" class="white-btn add-btn not-active">
+            <input type="submit" value="Add" class="white-btn add-btn">
         </form>
      
         <div class="side-icon remove">
@@ -52,7 +52,15 @@
                 </select>
                 <button type="button" class="white-btn remove-btn not-active">Remove</button>
             </form>
-            
+        </div>
+
+        <div class="side-icon challenge">
+            <span class="material-icons-outlined">menu_book</span>
+            <p class="icon-desc">Challenge</p>
+        </div>
+        <div class="challenge-display closed-sidebar">
+            <div class="challenge-bar"></div>
+            <p class="challenge-text"></p>
         </div>
 
     </aside>

@@ -6,9 +6,10 @@ const add = document.querySelector('.add');
 const addOpen = document.querySelector('.add-open');
 const remove = document.querySelector('.remove');
 const removeOpen = document.querySelector('.remove-open');
+const challenge = document.querySelector('.challenge');
+const challengeOpen = document.querySelector('.challenge-display');
 const main = document.querySelector('.main');
-
-// const sideIcon = document.querySelector('.side-icon');
+const iconDesc = document.querySelectorAll('.icon-desc');
 
 // Sidebar functionality desktop + mobile
 
@@ -34,6 +35,10 @@ remove.addEventListener('click', () => {
     removeOpen.classList.toggle('closed-sidebar');
 })
 
+challenge.addEventListener('click', () => {
+    challengeOpen.classList.toggle('closed-sidebar');
+})
+
 mobileIcon.addEventListener('click', () => {
     sidebar.classList.remove('sidebar-close-mobile');
 })
@@ -44,6 +49,8 @@ main.addEventListener('click', () => {
     searchOpen.classList.add('closed-sidebar');
     addOpen.classList.add('closed-sidebar');
     removeOpen.classList.add('closed-sidebar');
+    challengeOpen.classList.add('closed-sidebar');
+    iconDesc.forEach(item => item.style.transition = 'none');
 })
 
 
@@ -71,7 +78,8 @@ let authorArr = [];
 let dateArr = [];
 let haveReadArr = [];
 let ratingArr = [];
-let dataObject = {};
+let pagesArr = [];
+let bookData = {};
 
 // Create book cards
 
@@ -134,17 +142,20 @@ function fetchHandler() {
         haveReadArr.shift(0);
         data.values.forEach(i => ratingArr.push(i[4]));
         ratingArr.shift(0);
+        data.values.forEach(i => pagesArr.push(i[5]));
+        pagesArr.shift(0);
 
-        dataObject = titleArr.map((item, index) => ({ 
+        bookData = titleArr.map((item, index) => ({ 
             title: item, 
             author: authorArr[index] || '', 
             date: dateArr[index] || '',
             rating: showRating(ratingArr)[index] || '',
-            read: showHaveRead(haveReadArr)[index]
+            read: showHaveRead(haveReadArr)[index],
+            pages: pagesArr[index]
         }));
 
         hideLoading();
-        displayBooks(dataObject);
+        displayBooks(bookData);
         bookOptions(titleArr);
       
     })
@@ -161,7 +172,7 @@ const searchInput = document.querySelector('.search-input');
 function filterResults(e) {
     let updateInput = e.target.value.toLowerCase();
 
-    let filteredArr = dataObject.filter(book => {
+    let filteredArr = bookData.filter(book => {
         return book.title.toLowerCase().includes(updateInput) || book.author.toLowerCase().includes(updateInput)
     })
     
@@ -183,3 +194,22 @@ const bookOptions = () => {
     titleDropdown.innerHTML = optionsList;
 }
 
+// Show challenge display on sidebar
+
+let goalPages = 10000;
+let challengeYear = (new Date).getFullYear().toString();
+
+let percentDisplay = (6258 / goalPages) * 100;
+let root = document.documentElement;
+root.style.setProperty('--challenge-percent', percentDisplay + '%');
+
+const challengeText = document.querySelector('.challenge-text');
+
+function displayChallengeText(currentPages, goalPages) {
+    if (currentPages > goalPages) {
+        return `You've reached your goal! ${currentPages.toLocaleString("en-US")} pages!`
+    } else {
+        return `You've read ${currentPages.toLocaleString("en-US")} of your ${goalPages.toLocaleString("en-US")} page goal. Keep going!`
+    }
+}
+challengeText.innerHTML = displayChallengeText(6258, goalPages);
