@@ -15,17 +15,17 @@
     </div>
 
     <aside class="sidebar sidebar-close-mobile">
-        <div class="side-icon search">
+        <div class="side-icon">
             <span class="material-icons-outlined">search</span>
             <p class="icon-desc">Search</p>
         </div>
-        <input class="form-input closed-sidebar search-open search-input" type="text"></input>
+        <input class="display form-input closed-sidebar search-input" type="text"></input>
         
-        <div class="side-icon add">
+        <div class="side-icon">
             <span class="material-icons-outlined">add</span>
             <p class="icon-desc">Add</p>
         </div>
-        <form action="" method="POST" id="add-form" class="closed-sidebar add-open">
+        <form action="" method="POST" id="add-form" class="display closed-sidebar">
             <label for="title">Title</label>
             <input id="title" name="title" class="form-input" type="text" required>
             <label for="author">Author</label>
@@ -40,11 +40,11 @@
             <input type="submit" value="Add" class="white-btn add-btn">
         </form>
      
-        <div class="side-icon remove">
+        <div class="side-icon">
             <span class="material-icons-outlined">remove</span>
             <p class="icon-desc">Remove</p>
         </div>
-        <div class="closed-sidebar remove-open remove-form">
+        <div class="display closed-sidebar remove-form">
             <form method="POST">
                 <select class="form-select" name="book list">
                     <!-- <option value="" disabled selected hidden>Choose a book</option>
@@ -54,11 +54,11 @@
             </form>
         </div>
 
-        <div class="side-icon challenge">
+        <div class="side-icon">
             <span class="material-icons-outlined">menu_book</span>
             <p class="icon-desc">Challenge</p>
         </div>
-        <div class="challenge-display closed-sidebar">
+        <div class="display challenge-display closed-sidebar">
             <div class="challenge-bar"></div>
             <p class="challenge-text"></p>
         </div>

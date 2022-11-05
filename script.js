@@ -1,15 +1,9 @@
 const mobileIcon = document.querySelector('.mobile-icon');
 const sidebar = document.querySelector('.sidebar');
-const search = document.querySelector('.search');
-const searchOpen = document.querySelector('.search-open');
-const add = document.querySelector('.add');
-const addOpen = document.querySelector('.add-open');
-const remove = document.querySelector('.remove');
-const removeOpen = document.querySelector('.remove-open');
-const challenge = document.querySelector('.challenge');
-const challengeOpen = document.querySelector('.challenge-display');
 const main = document.querySelector('.main');
 const iconDesc = document.querySelectorAll('.icon-desc');
+const icons = document.querySelectorAll('.side-icon');
+const displays = document.querySelectorAll('.display');
 
 // Sidebar functionality desktop + mobile
 
@@ -17,26 +11,10 @@ sidebar.addEventListener('click', () => {
     sidebar.classList.add('sidebar-open');
 })
 
-// sideIcon.addEventListener('click', (e) => {
-//     e.classList.toggle('closed-sidebar');
-// }) select diff opens with one click event
-
-search.addEventListener('click', () => {
-    searchOpen.classList.toggle('closed-sidebar');
-})
-
-add.addEventListener('click', () => {
-    // sidebar.classList.add('add-open');
-    addOpen.classList.toggle('closed-sidebar');
-})
-
-remove.addEventListener('click', () => {
-    // sidebar.classList.add('remove-open');
-    removeOpen.classList.toggle('closed-sidebar');
-})
-
-challenge.addEventListener('click', () => {
-    challengeOpen.classList.toggle('closed-sidebar');
+icons.forEach((icon, i) => {
+    icon.addEventListener('click', () => {
+        displays[i].classList.toggle('closed-sidebar');
+    })
 })
 
 mobileIcon.addEventListener('click', () => {
@@ -46,14 +24,9 @@ mobileIcon.addEventListener('click', () => {
 main.addEventListener('click', () => {
     sidebar.classList.add('sidebar-close-mobile');
     sidebar.classList.remove('sidebar-open');
-    searchOpen.classList.add('closed-sidebar');
-    addOpen.classList.add('closed-sidebar');
-    removeOpen.classList.add('closed-sidebar');
-    challengeOpen.classList.add('closed-sidebar');
+    displays.forEach(item => item.classList.add('closed-sidebar'));
     iconDesc.forEach(item => item.style.transition = 'none');
 })
-
-
 
 // Loading animation
 
