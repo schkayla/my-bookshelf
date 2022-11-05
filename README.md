@@ -1,8 +1,20 @@
 # [my bookshelf](https://schkayla.github.io/my-bookshelf/ "my bookshelf")
 
-Since I read often, I've been looking for a good way to store the books I've read and want to read. The plan is to use Google Sheets as a database to store my list, and be able to add/remove books from a form. I'm also going to add functionality in selecting, 'want to read' or 'have read' (if I've read the book, then I get the option to rate the book, and the thumb rating appears on the card). Later I also want to add a search feature to search by title or author, a way to filter books I've read by ones I haven't, and a filter by year the book was added. 
+I like reading, so this is a way to keep track of books I've read, including title, author, date added, if I've read it, # of pages, and rating (if I've read it). I've used Goodreads to track my book reading, and they have a reading challenge where you can set a goal to read a certain number of books in a year, but I'd rather have a reading challenge based on number of pages read instead of number of books read. I used Google Sheets as my database and an API hosted on Heroku.
 
-I've created my own API and deployed the server on Heroku. You can search using the search feature to filter by book titles and authors. Working on functionality to add/remove books from the database.
+## Features
 
+- **Search**: Search by title or author. Titles/authors that do not match the search input are removed from bookshelf view.
+  
+- **Add***: Fill out the form to add a book to the bookshelf. 
+  
+- **Remove***: Choose from the list of titles to remove from the bookshelf.
+  
+- **Challenge***: Shows progress toward a yearly goal of number of pages read. Displays a congratulatory statement when goal is met.
+
+<br>
+<br>
+
+**still working on these features*
 
 `Node.js` `JavaScript` `CSS` `HTML`
