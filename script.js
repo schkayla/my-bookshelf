@@ -4,21 +4,25 @@ const main = document.querySelector('.main');
 const iconDesc = document.querySelectorAll('.icon-desc');
 const icons = document.querySelectorAll('.side-icon');
 const displays = document.querySelectorAll('.display');
+const sidebarArrow = document.querySelectorAll('#sidebar-arrow');
 
 // Sidebar functionality desktop + mobile
 
-sidebar.addEventListener('click', () => {
+sidebar.addEventListener('mouseover', () => {
     sidebar.classList.add('sidebar-open');
+    sidebarArrow.forEach(arrow => arrow.style.display = 'inline-block');
 })
 
 icons.forEach((icon, i) => {
     icon.addEventListener('click', () => {
         displays[i].classList.toggle('closed-sidebar');
+        sidebarArrow[i].classList.toggle('sidebar-arrow-rotate');
     })
 })
 
 mobileIcon.addEventListener('click', () => {
     sidebar.classList.remove('sidebar-close-mobile');
+    sidebarArrow.forEach(arrow => arrow.style.display = 'inline-block');
 })
     
 main.addEventListener('click', () => {
@@ -26,6 +30,8 @@ main.addEventListener('click', () => {
     sidebar.classList.remove('sidebar-open');
     displays.forEach(item => item.classList.add('closed-sidebar'));
     iconDesc.forEach(item => item.style.transition = 'none');
+    sidebarArrow.forEach(arrow => arrow.classList.remove('sidebar-arrow-rotate'));
+    sidebarArrow.forEach(arrow => arrow.style.display = 'none');
 })
 
 // Loading animation
@@ -130,7 +136,18 @@ function fetchHandler() {
         hideLoading();
         displayBooks(bookData);
         bookOptions(titleArr);
-      
+        // console.log(bookData.filter(el => el.date.slice(-2) === challengeYear.slice(-2)));
+
+        const getChallengeYearTotalPages = (books) => {
+            return books.forEach(book => {
+                book.filter(el => {
+                if (el.date.slice(-2) === challengeYear.slice(-2)) {
+                    return el.pages
+                }
+            })
+            
+        })}
+        console.log(getChallengeYearTotalPages(bookData))
     })
     .catch(e => console.error(e))
 }
@@ -171,6 +188,35 @@ const bookOptions = () => {
 
 let goalPages = 10000;
 let challengeYear = (new Date).getFullYear().toString();
+let challengeYearTotalPages = 0;
+
+// console.log(bookData.filter(el => el.date.slice(-2) === challengeYear.slice(-2)));
+// console.log(bookData)
+
+// function getChallengeYearTotalPages(books) {
+//     return books.reduce(el => {
+//         if (el.date.slice(-2) === challengeYear.slice(-2)) {
+//             challengeYearTotalPages += el.pages
+//         }
+//     })
+
+
+//     // let entries = Object.entries(bookData);
+//     // for (const [key, value] of books) {
+//     //     if (books.date.slice(-2) === challengeYear.slice(-2)) {
+//     //         challengeYearTotalPages += value;
+//     //     }
+//     // }
+//     // console.log(bookData.date)
+//     // console.log(challengeYear)
+//     // return challengeYearTotalPages;
+// }
+
+// console.log(getChallengeYearTotalPages(bookData))
+
+// currentYearPagesArr = bookData.filter(el => bookData.date === challengeYear)
+
+// console.log(currentYearPagesArr);
 
 let percentDisplay = (6258 / goalPages) * 100;
 let root = document.documentElement;

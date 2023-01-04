@@ -82,6 +82,14 @@ h3 {
     display: none;
 }
 
+#sidebar-arrow {
+    display: none;
+}
+
+.sidebar-arrow-rotate {
+    transform: rotate(90deg);
+}
+
 .side-icon {
     display: flex;
     flex-wrap: wrap;
