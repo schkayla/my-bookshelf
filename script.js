@@ -50,16 +50,6 @@ function hideLoading() {
     loading.classList.remove('display');
 }
 
-// Variables
-
-let titleArr = [];
-let authorArr = [];
-let dateArr = [];
-let haveReadArr = [];
-let ratingArr = [];
-let pagesArr = [];
-let bookData = {};
-
 // Create book cards
 
 const grid = document.querySelector('.grid');
@@ -70,9 +60,10 @@ function displayBooks(books) {
         <article class="card">
             <h3 id="title">${book.title}</h3>
             <p>${book.author}</p>
-            <p>${book.date}<i   class="material-icons-outlined icon ${book.rating}">thumb_up</i></p>
+            <p>${book.date}
+            ${showRating(book)}</p>
             <div class="toggle-button">
-                ${book.read}
+                ${showHaveRead(book)}
             </div>
         </article>
         `;
@@ -83,24 +74,24 @@ function displayBooks(books) {
 
 // Display rating on book cards
 
-const showRating = () => {
-    return ratingArr.map(rating => {
-        return rating === '3' ? 'thumb'
-             : rating === '2' ? `thumb-mid`
-             : rating === '1' ? `thumb-down`
-             : 'thumb-hidden';
-    })
+const showRating = (book) => {
+    if (book.rating === '3') {
+        return `<i class="material-icons-outlined icon">thumb_up</i>`
+    } else if (book.rating === '2') {
+        return `<i class="material-icons-outlined icon thumb-mid">thumb_up</i>`
+    } else if (book.rating === '1') {
+        return `<i class="material-icons-outlined icon">thumb_down</i>`
+    } else return `<i class="material-icons-outlined icon thumb-hidden">thumb_up</i>`
 }
 
 // Display purple read button on book cards
 
-const showHaveRead = () => {
-    return haveReadArr.map(index => {
-        if (index === 'yes') {
-            return `<button>Want to read</button><button class="toggle-on">Have read</button>`
-        } else return `<button class="toggle-on">Want to read</button><button>Have read</button>`
-    })
+const showHaveRead = (book) => {
+    if (book.read === 'yes') {
+        return `<button>Want to read</button><button class="toggle-on">Have read</button>`
+    } else return `<button class="toggle-on">Want to read</button><button>Have read</button>`
 }
+
 
 // Fetch database
 
@@ -110,44 +101,22 @@ function fetchHandler() {
     fetch('https://my-bookshelf-backend.herokuapp.com/')
     .then(response => response.json())
     .then(data => { 
-        
-        data.values.forEach(i => titleArr.push(i[0]));
-        titleArr.shift(0);
-        data.values.forEach(i => authorArr.push(i[1]));
-        authorArr.shift(0);
-        data.values.forEach(i => dateArr.push(i[2]));
-        dateArr.shift(0);
-        data.values.forEach(i => haveReadArr.push(i[3]));
-        haveReadArr.shift(0);
-        data.values.forEach(i => ratingArr.push(i[4]));
-        ratingArr.shift(0);
-        data.values.forEach(i => pagesArr.push(i[5]));
-        pagesArr.shift(0);
 
-        bookData = titleArr.map((item, index) => ({ 
-            title: item, 
-            author: authorArr[index] || '', 
-            date: dateArr[index] || '',
-            rating: showRating(ratingArr)[index] || '',
-            read: showHaveRead(haveReadArr)[index],
-            pages: pagesArr[index]
+        bookData = data.values.map((item) => ({ 
+            title: item[0], 
+            author: item[1] || '', 
+            date: item[2] || '',
+            read: item[3],
+            rating: item[4] || '',
+            pages: item[5]
         }));
+
+        //remove first row from spreadsheet
+        bookData.shift();
 
         hideLoading();
         displayBooks(bookData);
-        bookOptions(titleArr);
-        // console.log(bookData.filter(el => el.date.slice(-2) === challengeYear.slice(-2)));
-
-        const getChallengeYearTotalPages = (books) => {
-            return books.forEach(book => {
-                book.filter(el => {
-                if (el.date.slice(-2) === challengeYear.slice(-2)) {
-                    return el.pages
-                }
-            })
-            
-        })}
-        console.log(getChallengeYearTotalPages(bookData))
+        bookOptions();    
     })
     .catch(e => console.error(e))
 }
@@ -177,8 +146,8 @@ searchInput.addEventListener('keyup', filterResults);
 const titleDropdown = document.querySelector('.form-select');
 
 const bookOptions = () => {
-    const optionsList = titleArr.map(title => {
-        return `<option value=${title}>${title}</option>`
+    const optionsList = bookData.map(book => {
+        return `<option value=${book.title}>${book.title}</option>`
     })
 
     titleDropdown.innerHTML = optionsList;
@@ -189,34 +158,6 @@ const bookOptions = () => {
 let goalPages = 10000;
 let challengeYear = (new Date).getFullYear().toString();
 let challengeYearTotalPages = 0;
-
-// console.log(bookData.filter(el => el.date.slice(-2) === challengeYear.slice(-2)));
-// console.log(bookData)
-
-// function getChallengeYearTotalPages(books) {
-//     return books.reduce(el => {
-//         if (el.date.slice(-2) === challengeYear.slice(-2)) {
-//             challengeYearTotalPages += el.pages
-//         }
-//     })
-
-
-//     // let entries = Object.entries(bookData);
-//     // for (const [key, value] of books) {
-//     //     if (books.date.slice(-2) === challengeYear.slice(-2)) {
-//     //         challengeYearTotalPages += value;
-//     //     }
-//     // }
-//     // console.log(bookData.date)
-//     // console.log(challengeYear)
-//     // return challengeYearTotalPages;
-// }
-
-// console.log(getChallengeYearTotalPages(bookData))
-
-// currentYearPagesArr = bookData.filter(el => bookData.date === challengeYear)
-
-// console.log(currentYearPagesArr);
 
 let percentDisplay = (6258 / goalPages) * 100;
 let root = document.documentElement;

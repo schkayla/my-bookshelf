@@ -195,7 +195,7 @@ h3 {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     align-items: center;
     justify-content: center;
-    gap: 5% 3%;
+    gap: 20px;
     width: 80%;
     margin: 0 auto;
 }
@@ -205,6 +205,7 @@ h3 {
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    max-width: 500px;
     -webkit-box-shadow:0 2px 4px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1) inset;
     -moz-box-shadow:0 2px 4px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1) inset;
     box-shadow:0 2px 4px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1) inset;
@@ -220,10 +221,6 @@ h3 {
 
 .thumb-mid {
     transform: rotate(-90deg);
-}
-
-.thumb-down {
-    transform: rotate(-180deg);
 }
 
 .thumb-hidden {
@@ -315,7 +312,7 @@ h3 {
     }
   }
 
-@media only screen and (min-width: 550px) and (max-width: 825px) {
+@media only screen and (max-width: 825px) {
     
     .grid {
         width: 50%;
