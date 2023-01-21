@@ -92,8 +92,34 @@ const showHaveRead = (book) => {
     } else return `<button class="toggle-on">Want to read</button><button>Have read</button>`
 }
 
+// Show challenge display on sidebar
+
+let goalPages = 10000;
+// let challengeYear = (new Date).getFullYear().toString();
+let challengeYear = '2022';
+
+const getChallengeYearTotalPages = (books) => {
+    return books.reduce((total, current) => {
+        if (current.date.slice(-2) === challengeYear.slice(-2)) {
+            return Number(total) + Number(current.pages);
+        }
+        return total;
+    }, 0)
+}
+
+const challengeText = document.querySelector('.challenge-text');
+
+function displayChallengeText(currentPages, goalPages) {
+    if (currentPages > goalPages) {
+        return `You've reached your goal! ${currentPages.toLocaleString("en-US")} pages!`
+    } else {
+        return `You've read ${currentPages.toLocaleString("en-US")} of your ${goalPages.toLocaleString("en-US")} page goal. Keep going!`
+    }
+}
 
 // Fetch database
+
+// let bookData;
 
 function fetchHandler() {
     displayLoading();
@@ -116,7 +142,13 @@ function fetchHandler() {
 
         hideLoading();
         displayBooks(bookData);
-        bookOptions();    
+        bookOptions();  
+        let challengeYearTotalPages = getChallengeYearTotalPages(bookData)
+
+        challengeText.innerHTML = displayChallengeText(challengeYearTotalPages, goalPages);
+        let percentDisplay = (challengeYearTotalPages / goalPages) * 100;
+        document.documentElement.style.setProperty('--challenge-percent', percentDisplay + '%');
+
     })
     .catch(e => console.error(e))
 }
@@ -152,24 +184,3 @@ const bookOptions = () => {
 
     titleDropdown.innerHTML = optionsList;
 }
-
-// Show challenge display on sidebar
-
-let goalPages = 10000;
-let challengeYear = (new Date).getFullYear().toString();
-let challengeYearTotalPages = 0;
-
-let percentDisplay = (6258 / goalPages) * 100;
-let root = document.documentElement;
-root.style.setProperty('--challenge-percent', percentDisplay + '%');
-
-const challengeText = document.querySelector('.challenge-text');
-
-function displayChallengeText(currentPages, goalPages) {
-    if (currentPages > goalPages) {
-        return `You've reached your goal! ${currentPages.toLocaleString("en-US")} pages!`
-    } else {
-        return `You've read ${currentPages.toLocaleString("en-US")} of your ${goalPages.toLocaleString("en-US")} page goal. Keep going!`
-    }
-}
-challengeText.innerHTML = displayChallengeText(6258, goalPages);
